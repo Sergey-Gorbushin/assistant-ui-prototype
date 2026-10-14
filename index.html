@@ -45,10 +45,9 @@ const assistantDock=document.getElementById('assistantDock'),dockInput=document.
 function openAssistant(){assistantDock.classList.add('open');document.getElementById('dockPanel').setAttribute('aria-hidden','false');dockInput.focus()}
 function closeAssistant(){assistantDock.classList.remove('open');document.getElementById('dockPanel').setAttribute('aria-hidden','true')}
 function runPrompt(text){assistantDock.classList.add('has-chat');addDockMessage(text,'user');dockInput.value='';replyDock()}
-function sendDock(e){e.preventDefault();const text=dockInput.value.trim();if(!text){openAssistant();return;}assistantDock.classList.add('has-chat');addDockMessage(text,'user');dockInput.value='';replyDock()}
+function sendDock(e){e.preventDefault();const text=dockInput.value.trim();if(!text)return;assistantDock.classList.add('has-chat');addDockMessage(text,'user');dockInput.value='';replyDock()}
 function addDockMessage(text,kind){const node=document.createElement('div');node.className='bubble '+kind;node.textContent=text;dockMessages.append(node);dockMessages.scrollTop=dockMessages.scrollHeight}
 function replyDock(){const node=document.createElement('div');node.className='bubble bot';node.textContent='Посмотрю сведения в карточке компании и соберу краткий ответ со ссылками на соответствующие разделы.';dockMessages.append(node);dockMessages.scrollTop=dockMessages.scrollHeight}
 function resetAssistant(){dockMessages.replaceChildren();assistantDock.classList.remove('has-chat');dockInput.value='';openAssistant()}
-dockInput.addEventListener('focus',()=>{if(!assistantDock.classList.contains('open'))openAssistant()});
 document.addEventListener('pointerdown',e=>{if(assistantDock.classList.contains('open')&&!assistantDock.contains(e.target))closeAssistant()});
 </script></body></html>
